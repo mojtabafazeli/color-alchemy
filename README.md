@@ -40,7 +40,7 @@ Bonus feature
 Two tabs at left:
 
     - Empty Tab: Show "This is an empty tab" when selected
-    - Data Tab: Detail as below
+    - Data Tab: Illustrated as below
 
 ### 2. Data ###
 
