@@ -1,6 +1,6 @@
-# LiveBarn Front-end Developer Interview Code Challenge #
+# LiveBarn Front-end Software Engineer Interview Code Challenge #
 
-Welcome to LiveBarn Front-end Software Engineer Interview Code Challenge. Please download **color-alchemy-instruction.html** and **
+Welcome to LiveBarn Front-end Software Engineer Interview Code Challenge. Please clone this repository and read carefully the instructions in **color-alchemy-instruction.html**.
 
 Please upload your code to your online repository and provide us with the link.
 
