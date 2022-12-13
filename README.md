@@ -2,7 +2,7 @@
 
 Welcome to LiveBarn Front-end Software Engineer Interview Code Challenge. 
 
-Please clone this repository and open **color-alchemy-instruction.html** in your browser to read the instructions.
+Please clone this repository and read the instructions [here](https://hackmd.io/@gd_dVYF0STqPqMLWkxnd6A/Byrxur5At).
 
 Please upload your code to your online repository and provide us with the link.
 
