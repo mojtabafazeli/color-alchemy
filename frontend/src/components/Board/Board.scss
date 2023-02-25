@@ -1,4 +1,48 @@
 .Board {
     display: flex;
     flex-direction: column;
+
+    ul {
+        padding: 4px;
+    }
+
+    .boardGrid {
+        display: grid;
+        grid-template-areas:
+            ". sourcesRowTop ."
+            "sourcesColLeft tile sourcesColRight"
+            ". sourcesRowBottom .";
+        width: fit-content;
+    }
+
+    .sources {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .sources.left {
+        grid-area: sourcesColLeft;
+    }
+
+    .sources.top {
+        grid-area: sourcesRowTop;
+    }
+
+    .sources.right {
+        grid-area: sourcesColRight;
+    }
+
+    .sources.bottom {
+        grid-area: sourcesRowBottom;
+    }
+
+    .row {
+        flex-direction: row;
+    }
+
+    .column {
+        flex-direction: column;
+    }
+
 }
