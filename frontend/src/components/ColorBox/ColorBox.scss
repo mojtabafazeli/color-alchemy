@@ -1,0 +1,19 @@
+.ColorBox {
+    display: flex;
+    
+    .box {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: solid 1px black;
+    }
+
+
+    .tile {
+        border-radius: 5px;
+    }
+
+    .source {
+        border-radius: 50%;
+    }
+}
