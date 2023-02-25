@@ -1,15 +1,32 @@
 import React from 'react';
+import { object } from 'prop-types';
 import GameInfoBox from 'components/GameInfoBox/GameInfoBox';
 import BoardC from 'components/Board/BoardC';
 
-const Homepage = () => {
+const Homepage = ({
+	gameState,
+}) => {
+	const {
+		userId,
+		width,
+		height,
+		targetColor,
+	} = gameState;
+
 	return (
 		<div className='Board'>
-			<GameInfoBox />
+			<GameInfoBox
+				userId={userId}
+				targetColor={targetColor}
+			/>
             
-			<BoardC />
+			<BoardC width={width} height={height} />
 		</div>
 	);
+};
+
+Homepage.propTypes = {
+	gameState: object,
 };
 
 export default Homepage;

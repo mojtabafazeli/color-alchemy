@@ -10,6 +10,7 @@ const GameInfoBox = ({
 	closestColor,
 	delta,
 }) => {
+	console.log('tarter', targetColor);
 	return (
 		<div className='GameInfoBox'>
 			<h5>RGB Alchemy</h5>
