@@ -1,9 +1,9 @@
 import React from 'react';
 import Board from './Board';
 
-const BoardC = () => {
+const BoardC = (props) => {
 	return (
-		<Board />
+		<Board {...props} />
 	);
 };
 

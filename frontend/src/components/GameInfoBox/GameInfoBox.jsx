@@ -1,32 +1,34 @@
 import './GameInfoBox.scss';
 import React from 'react';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 import Tile from 'components/ColorBox/Tile';
-import Source from 'components/ColorBox/Source';
+import {USER_ID, MOVES_LEFT, TARGET_COLOR, CLOSEST_COLOR } from 'constants/langConstants';
 
 const GameInfoBox = ({
 	userId,
 	targetColor,
 	closestColor,
+	movesLeft,
 	delta,
 }) => {
-	console.log('tarter', targetColor);
 	return (
 		<div className='GameInfoBox'>
 			<h5>RGB Alchemy</h5>
             
-			<p>User ID: {userId}</p>
+			<p>{USER_ID}: {userId}</p>
+
+			<p>{MOVES_LEFT}: {movesLeft}</p>
             
 			<div className='colorLine'>
-				<span>Target color</span>
+				<span>{TARGET_COLOR}</span>
                 
 				<Tile color={targetColor} />
 			</div>
             
 			<div className='colorLine'>
-				<span>Target color</span>
+				<span>{CLOSEST_COLOR}</span>
                 
-				<Source color={closestColor} />
+				<Tile color={closestColor} />
                 
 				<span>△ = {delta}</span>
 			</div>
@@ -38,6 +40,7 @@ GameInfoBox.propTypes = {
 	userId: string,
 	targetColor: string,
 	closestColor: string,
+	movesLeft: number,
 	delta: string,
 };
 
