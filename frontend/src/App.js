@@ -1,11 +1,11 @@
 import './App.css';
 import React from 'react';
-import GameInfoBox from 'components/GameInfoBox/GameInfoBoxC';
+import BoardC from 'components/Board/BoardC';
 
 function App() {
 	return (
 		<div className="App">
-			<GameInfoBox />
+			<BoardC />
 		</div>
 	);
 }

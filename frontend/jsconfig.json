@@ -7,7 +7,7 @@
     "module": "es2015",
     "baseUrl": "src",
     "paths": {
-      "com/*": ["components/*"]}
+      "components/*": ["components/*"]}
   },
   "exclude": [
     "dist",
