@@ -5,29 +5,29 @@ import { string, oneOf } from 'prop-types';
 import { ColorBoxType } from 'constants/constants';
 
 const ColorBox = ({
-    color,
-    type,
+	color,
+	type,
 }) => {   
-    const boxClassName = classNames('box', type);
-    return (
-        <div className='ColorBox'>
-            <div
-                className={boxClassName}
-                style={{ backgroundColor: color  }}    
-            >
-            </div>
-        </div>
-    )
-}
+	const boxClassName = classNames('box', type);
+	return (
+		<div className='ColorBox'>
+			<div
+				className={boxClassName}
+				style={{ backgroundColor: color  }}    
+			>
+			</div>
+		</div>
+	);
+};
 
 ColorBox.defaultProps = {
-    color: 'black',
-}
+	color: 'black',
+};
 
 ColorBox.propTypes = {
-    color: string,
-    type: oneOf([ColorBoxType.TILE, ColorBoxType.SOURCE])
-}
+	color: string,
+	type: oneOf([ColorBoxType.TILE, ColorBoxType.SOURCE])
+};
 
 export default ColorBox;
 

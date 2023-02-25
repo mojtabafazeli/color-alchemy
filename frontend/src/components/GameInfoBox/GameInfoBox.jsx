@@ -1,6 +1,6 @@
 import './GameInfoBox.scss';
 import React from 'react';
-import {string } from 'prop-types';
+import { string } from 'prop-types';
 import Tile from 'components/ColorBox/Tile';
 import Source from 'components/ColorBox/Source';
 

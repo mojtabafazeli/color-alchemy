@@ -5,11 +5,11 @@ import { ColorBoxType } from 'constants/constants';
 
 
 const Tile = ({ color }) => {
-    return <ColorBox color={color} type={ColorBoxType.TILE}/> 
-}
+	return <ColorBox color={color} type={ColorBoxType.TILE}/>; 
+};
 
 Tile.propTypes = {
-    color: string,
-}
+	color: string,
+};
 
 export default Tile;

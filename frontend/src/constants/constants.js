@@ -1,4 +1,4 @@
 export const ColorBoxType = {
-  TILE: "tile",
-  SOURCE: "source",
+	TILE: 'tile',
+	SOURCE: 'source',
 };
