@@ -1,11 +1,11 @@
 import './App.css';
 import React from 'react';
-import BoardC from 'components/Board/BoardC';
+import HomepageC from 'components/Homepage/HomepageC';
 
 function App() {
 	return (
 		<div className="App">
-			<BoardC />
+			<HomepageC />
 		</div>
 	);
 }
