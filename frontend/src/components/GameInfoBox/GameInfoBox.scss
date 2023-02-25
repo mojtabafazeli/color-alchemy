@@ -1,0 +1,19 @@
+.GameInfoBox {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    padding: 10px;
+    text-align: left;
+    gap: 16px;
+
+    p,
+    h5 {
+        margin: 0;
+    }
+
+    .colorLine {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+}
