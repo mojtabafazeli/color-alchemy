@@ -23,26 +23,22 @@
 
     .sources.left {
         grid-area: sourcesColLeft;
+        flex-direction: column;
     }
 
     .sources.top {
         grid-area: sourcesRowTop;
+        flex-direction: row;
     }
 
     .sources.right {
         grid-area: sourcesColRight;
+        flex-direction: column;
     }
 
     .sources.bottom {
         grid-area: sourcesRowBottom;
-    }
-
-    .row {
         flex-direction: row;
-    }
-
-    .column {
-        flex-direction: column;
     }
 
     .tiles {

@@ -9,15 +9,13 @@ const Board = ({
 	height,
 	setMoves,
 }) => {
-	const Columns = new Array(height);
-
 	return (
 		<div className='Board'>
 			<div className='boardGrid'>
-				<Sources length={width} position='top' direction='row' />
-				<Sources length={height} position='left' direction='column' />
-				<Sources length={height} position='right' direction='column'/>
-				<Sources length={width} position='bottom' direction='row' />
+				<Sources length={width} position='top'/>
+				<Sources length={height} position='left'/>
+				<Sources length={height} position='right'/>
+				<Sources length={width} position='bottom'/>
 				<Tiles x={width} y={height} className={'tiles'} />
 			</div>
 		</div>

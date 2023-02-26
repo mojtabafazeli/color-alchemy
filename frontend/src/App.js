@@ -1,11 +1,14 @@
 import './App.css';
 import React from 'react';
 import HomepageC from 'components/Homepage/HomepageC';
+import ColorContext from 'context/ColorContext';
 
 function App() {
 	return (
 		<div className="App">
-			<HomepageC />
+			<ColorContext>
+				<HomepageC />
+			</ColorContext>
 		</div>
 	);
 }

@@ -6,9 +6,8 @@ import Source from 'components/ColorBox/Source';
 const Sources = ({
 	length,
 	position,
-	direction
 }) => {
-	const ulClassName = classNames('sources', position, direction);
+	const ulClassName = classNames('sources', position);
 	
 	const onClickSource = (ind, position) => {
 		// setMoves(prev => {
@@ -35,8 +34,6 @@ const Sources = ({
 Sources.propTypes = {
 	length: number,
 	position: string,
-	direction: string,
-
 };
 
 export default Sources;
