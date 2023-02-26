@@ -1,5 +1,20 @@
 import React, { useState, useContext, createContext, useMemo } from 'react';
 import { node } from 'prop-types';
+import { useGameState } from 'context/GameContext';
+import { BLACK } from 'constants/colorConstants';
+
+const createColorMap = (width, height) => {
+	let colorMap = {};
+	for (let i = 0; i <= width + 1; i++) {
+		for (let j = 0; j <= height + 1; j++) {
+			colorMap[`${i}-${j}`] = BLACK;
+		}
+	}
+
+	delete colorMap['0-0'];
+
+	return colorMap;
+};
 
 const ColorStateContext = createContext(null);
 const ColorUpdaterContext = createContext(null);
@@ -25,7 +40,10 @@ const useColorUpdater = () => {
 };
 
 const ColorContext = ({ children }) => {
-	const [colorSet, setColorSet] = useState({});
+	const { fetchedGameState: gameState } = useGameState();
+	const { width, height } = gameState;
+
+	const [colorSet, setColorSet] = useState(createColorMap(width, height));
 	const colorStateValue = useMemo(() => colorSet, [colorSet]);
 	const colorActionsValue = useMemo(() => ({ setColorSet }), []);
 

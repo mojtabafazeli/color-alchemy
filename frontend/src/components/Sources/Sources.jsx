@@ -4,6 +4,28 @@ import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
 import classNames from 'classnames';
 import Source from 'components/ColorBox/Source';
+import { BLACK, RED, GREEN, BLUE } from 'constants/colorConstants';
+
+const createId = (ind, position, width, height) => {
+	let xPos = ind+1;
+	let yPos = ind+1;
+	switch (position) {
+	case 'top':
+		yPos = 0;
+		break;
+	case 'bottom':
+		yPos = height + 1;
+		break;
+	case 'left':
+		xPos = 0;
+		break;
+	case 'right':
+		xPos = width + 1;
+		break;
+	}
+
+	return `${xPos}-${yPos}`;
+};
 
 const Sources = (
 	{
@@ -23,6 +45,15 @@ const Sources = (
 		setCounter(prev => prev - 1);
 	};
 
+	const setColor = () => {
+		switch (counter) {
+		case 2: return RED;
+		case 1: return GREEN;
+		case 0: return BLUE;
+		default: return BLACK;
+		}
+	};
+
 	const SourcesRow = (
 		{
 			length,
@@ -38,7 +69,8 @@ const Sources = (
 			<ul className={ulClassName}>
 				{[...Array(length)].map((_, ind) => (
 					<Source
-						id={`${ind + 1}-${position}`}
+						color={setColor()}
+						id={createId(ind, position,width, height)}
 						className={sourceClassName}
 						key={ind}
 						onClick={() => onClickSource(ind, position)}

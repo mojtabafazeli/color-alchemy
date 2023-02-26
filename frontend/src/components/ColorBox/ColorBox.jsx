@@ -4,9 +4,10 @@ import noop from 'lodash/noop';
 import classNames from 'classnames';
 import { string, oneOf, func } from 'prop-types';
 import { ColorBoxType } from 'constants/constants';
+import { BLACK } from 'constants/colorConstants';
 
 const ColorBox = ({
-	color = 'rgb(0,0,0)',
+	color = BLACK,
 	id: propId,
 	className: propClassName,
 	type,

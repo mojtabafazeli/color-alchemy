@@ -4,6 +4,15 @@ import { number, string } from 'prop-types';
 import classNames from 'classnames';
 import Tile from 'components/ColorBox/Tile';
 
+const createId = (ind, x, y) => {
+	const xPos = (ind + 1) % x === 0 ? x : (ind + 1) % x;
+        
+	const tempYPos = (ind + 1) % x === 0 ? (ind + 1) / x : (Math.floor((ind + 1) / x) + 1) % y;
+	const yPos = tempYPos === 0 ? y : tempYPos;
+        
+	return `${xPos}-${yPos}`;
+};
+
 const Tiles = (
 	{
 		x,
@@ -14,15 +23,6 @@ const Tiles = (
 	const gridTemplateRows = `repeat(${y}, 1fr)`;
 	const tilesClassName = classNames('Tiles', propClassName);
 	const tileNumbers = x * y || 0;
-    
-	const createId = (ind, x, y) => {
-		const xPos = (ind + 1) % x === 0 ? x : (ind + 1) % x;
-        
-		const tempYPos = (ind + 1) % x === 0 ? (ind + 1) / x : (Math.floor((ind + 1) / x) + 1) % y;
-		const yPos = tempYPos === 0 ? y : tempYPos;
-        
-		return `${xPos}-${yPos}`;
-	};
     
 	return (
 		<ul
