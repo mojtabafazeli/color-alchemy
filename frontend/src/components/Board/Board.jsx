@@ -2,20 +2,20 @@ import './Board.scss';
 import React from 'react';
 import Sources from 'components/Sources/Sources';
 import Tiles from 'components/Tiles/Tiles';
-import { number, func } from 'prop-types';
+import { number, array } from 'prop-types';
 
 const Board = ({
 	width,
 	height,
+	gameActions = [],
 }) => {
+	const [setMovesLeft] = gameActions;
+
 	return (
 		<div className='Board'>
 			<div className='boardGrid'>
-				<Sources length={width} position='top'/>
-				<Sources length={height} position='left'/>
-				<Sources length={height} position='right'/>
-				<Sources length={width} position='bottom'/>
-				<Tiles x={width} y={height} className={'tiles'} />
+				<Sources width={width} height={height} setMovesLeft={setMovesLeft}/>
+				<Tiles x={width} y={height} className={'tiles'} setMovesLeft={setMovesLeft}/>
 			</div>
 		</div>
 	);
@@ -24,7 +24,7 @@ const Board = ({
 Board.propTypes = {
 	width: number,
 	height: number,
-	setMovesLeft: func,
+	gameActions: array,
 };
 
 export default Board;

@@ -8,10 +8,12 @@ import { ColorBoxType } from 'constants/constants';
 const ColorBox = ({
 	color = 'rgb(0,0,0)',
 	id: propId,
+	className: propClassName,
 	type,
 	onClick = noop,
 }) => {   
-	const boxClassName = classNames('box', type);
+	const boxClassName = classNames('box', type, propClassName);
+
 	return (
 		<div className='ColorBox'>
 			<div
@@ -29,6 +31,7 @@ ColorBox.propTypes = {
 	color: string,
 	type: oneOf([ColorBoxType.TILE, ColorBoxType.SOURCE]),
 	id: string,
+	className: string,
 	onClick: func,
 };
 
