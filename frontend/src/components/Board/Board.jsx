@@ -9,13 +9,6 @@ const Board = ({
 	height,
 	setMoves,
 }) => {
-	const onClickSource = () => {
-		setMoves(prev => {
-			if (prev === 0) return;
-			return prev-1;
-		});
-	};
-
 	const Columns = new Array(height);
 
 	return (

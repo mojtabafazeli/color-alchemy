@@ -15,6 +15,15 @@ const Tiles = (
 	const tilesClassName = classNames('Tiles', propClassName);
 	const tileNumbers = x * y || 0;
     
+	const createId = (ind, x, y) => {
+		const xPos = (ind + 1) % x === 0 ? x : (ind + 1) % x;
+        
+		const tempYPos = (ind + 1) % x === 0 ? (ind + 1) / x : (Math.floor((ind + 1) / x) + 1) % y;
+		const yPos = tempYPos === 0 ? y : tempYPos;
+        
+		return `${xPos}-${yPos}`;
+	};
+    
 	return (
 		<ul
 			style={
@@ -26,7 +35,7 @@ const Tiles = (
 			className={tilesClassName}
 		>
 			{[...Array(tileNumbers)].map((el, ind) => (
-				<Tile key={ind} />
+				<Tile id={createId(ind,x,y)} key={ind} />
 			))}
 		</ul>
 	);

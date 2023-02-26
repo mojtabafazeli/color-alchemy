@@ -9,9 +9,24 @@ const Sources = ({
 	direction
 }) => {
 	const ulClassName = classNames('sources', position, direction);
+	
+	const onClickSource = () => {
+		// setMoves(prev => {
+		// 	if (prev === 0) return;
+		// 	return prev-1;
+		// });
+	};
+
 	return (
 		<ul className={ulClassName}>
-			{[...Array(length)].map((_, ind) => <Source id={`${ind+1}-${position}` } key={ind} />)}
+			{[...Array(length)].map((_, ind) => (
+				<Source
+					id={`${ind + 1}-${position}`}
+					key={ind}
+					onClick={() => onClickSource()}
+				/>
+			)
+			)}
 		</ul>
 	);
 };
