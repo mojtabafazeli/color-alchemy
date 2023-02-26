@@ -4,9 +4,11 @@ import { string } from 'prop-types';
 import { ColorBoxType } from 'constants/constants';
 
 const Source = (props) => {
-	return <ColorBox
-		{...props}
-		type={ColorBoxType.SOURCE} />;
+	return (
+		<ColorBox
+			{...props}
+			type={ColorBoxType.SOURCE} />
+	);
 };
 
 Source.propTypes = {

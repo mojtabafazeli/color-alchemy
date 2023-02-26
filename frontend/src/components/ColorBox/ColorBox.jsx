@@ -1,13 +1,15 @@
 import './ColorBox.scss';
 import React from 'react';
+import noop from 'lodash/noop';
 import classNames from 'classnames';
-import { string, oneOf } from 'prop-types';
+import { string, oneOf, func } from 'prop-types';
 import { ColorBoxType } from 'constants/constants';
 
 const ColorBox = ({
-	color,
+	color = 'rgb(0,0,0)',
 	id: propId,
 	type,
+	onClick = noop,
 }) => {   
 	const boxClassName = classNames('box', type);
 	return (
@@ -15,21 +17,19 @@ const ColorBox = ({
 			<div
 				id={propId}
 				className={boxClassName}
-				style={{ backgroundColor: color }}    
+				style={{ backgroundColor: color }}
+				onClick={onClick}
 			>
 			</div>
 		</div>
 	);
 };
 
-ColorBox.defaultProps = {
-	color: 'black',
-};
-
 ColorBox.propTypes = {
 	color: string,
 	type: oneOf([ColorBoxType.TILE, ColorBoxType.SOURCE]),
 	id: string,
+	onClick: func,
 };
 
 export default ColorBox;

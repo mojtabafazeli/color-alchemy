@@ -10,11 +10,12 @@ const Sources = ({
 }) => {
 	const ulClassName = classNames('sources', position, direction);
 	
-	const onClickSource = () => {
+	const onClickSource = (ind, position) => {
 		// setMoves(prev => {
 		// 	if (prev === 0) return;
 		// 	return prev-1;
 		// });
+		console.log(ind + 1, position);
 	};
 
 	return (
@@ -23,7 +24,7 @@ const Sources = ({
 				<Source
 					id={`${ind + 1}-${position}`}
 					key={ind}
-					onClick={() => onClickSource()}
+					onClick={() => onClickSource(ind, position)}
 				/>
 			)
 			)}
