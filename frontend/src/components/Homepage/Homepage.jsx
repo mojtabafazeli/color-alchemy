@@ -1,11 +1,10 @@
 import React from 'react';
-import { object, array } from 'prop-types';
+import { object } from 'prop-types';
 import GameInfoBox from 'components/GameInfoBox/GameInfoBox';
 import BoardC from 'components/Board/BoardC';
 
 const Homepage = ({
 	gameState,
-	gameActions,
 }) => {
 	const {
 		userId,
@@ -14,8 +13,6 @@ const Homepage = ({
 		targetColor,
 		movesLeft,
 	} = gameState;
-    
-	const [setMovesLeft] = gameActions;
 
 	return (
 		<div className='Board'>
@@ -25,14 +22,13 @@ const Homepage = ({
 				movesLeft={movesLeft}
 			/>
             
-			<BoardC width={width} height={height} setMoves={setMovesLeft} />
+			<BoardC width={width} height={height} />
 		</div>
 	);
 };
 
 Homepage.propTypes = {
 	gameState: object,
-	gameActions: array,
 };
 
 export default Homepage;

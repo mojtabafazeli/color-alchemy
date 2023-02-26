@@ -1,22 +1,15 @@
 import React from 'react';
 import Homepage from './Homepage';
+import { useGameState } from 'context/GameContext';
 import createRGB from 'utils/createRGB';
 
-const HomepageC = () => {    
+const HomepageC = () => {  
+	const { fetchedGameState: gameState, movesLeft } = useGameState();
+	const { target } = gameState;
 	const targetColor = createRGB(target);
-    
-	const gameState = {
-		userId,
-		width,
-		height,
-		movesLeft,
-		targetColor,
-	};
-    
-	const gameActions = [setMovesLeft];
 
 	return (
-		<Homepage gameState={gameState} gameActions={gameActions} />
+		<Homepage gameState={{ ...gameState, targetColor, movesLeft }} />
 	);
 };
 

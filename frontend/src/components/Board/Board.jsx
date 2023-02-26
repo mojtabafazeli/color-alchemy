@@ -7,7 +7,6 @@ import { number, func } from 'prop-types';
 const Board = ({
 	width,
 	height,
-	setMoves,
 }) => {
 	return (
 		<div className='Board'>
@@ -25,7 +24,7 @@ const Board = ({
 Board.propTypes = {
 	width: number,
 	height: number,
-	setMoves: func,
+	setMovesLeft: func,
 };
 
 export default Board;

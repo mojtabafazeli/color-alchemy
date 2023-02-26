@@ -3,7 +3,7 @@ import Board from './Board';
 
 const BoardC = (props) => {
 	return (
-		<Board {...props} />
+		<Board {...props}/>
 	);
 };
 

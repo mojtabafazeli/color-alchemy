@@ -26,7 +26,7 @@ const useGameUpdater = () => {
 };
 
 const GameContext = ({ children }) => {
-	const [fetchedState, setGameState] = useState({});
+	const [fetchedGameState, setGameState] = useState({});
 	const [movesLeft, setMovesLeft] = useState();
 
 	useEffect(() => {
@@ -41,12 +41,12 @@ const GameContext = ({ children }) => {
     
 	const gameStateValue = useMemo(() => (
 		{
-			fetchedState,
+			fetchedGameState,
 			movesLeft
 		}
 	)
 	, [
-		fetchedState,
+		fetchedGameState,
 		movesLeft
 	]);
     
