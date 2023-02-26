@@ -10,7 +10,7 @@
         display: grid;
         grid-template-areas:
             ". sourcesRowTop ."
-            "sourcesColLeft tile sourcesColRight"
+            "sourcesColLeft tiles sourcesColRight"
             ". sourcesRowBottom .";
         width: fit-content;
     }
@@ -43,6 +43,10 @@
 
     .column {
         flex-direction: column;
+    }
+
+    .tiles {
+        grid-area: tiles;
     }
 
 }

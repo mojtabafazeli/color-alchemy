@@ -1,8 +1,7 @@
 import './Board.scss';
 import React from 'react';
-import classNames from 'classnames';
-import Tile from 'components/ColorBox/Tile';
-import Source from 'components/ColorBox/Source';
+import Sources from 'components/Sources/Sources';
+import Tiles from 'components/Tiles/Tiles';
 import { number, func } from 'prop-types';
 
 const Board = ({
@@ -17,24 +16,16 @@ const Board = ({
 		});
 	};
 
-	const Sources = ({ position, direction }) => {
-		const ulClassName = classNames('sources', position, direction);
-		return (
-			<ul className={ulClassName}>
-				{[...Array(width)].map((_, ind) => <Source key={ind} />)}
-			</ul>
-		);
-	};
-
 	const Columns = new Array(height);
 
 	return (
 		<div className='Board'>
 			<div className='boardGrid'>
-				<Sources position='top' direction='row' />
-				<Sources position='left' direction='column' />
-				<Sources position='right' direction='column'/>
-				<Sources position='bottom' direction='row'/>
+				<Sources length={width} position='top' direction='row' />
+				<Sources length={height} position='left' direction='column' />
+				<Sources length={height} position='right' direction='column'/>
+				<Sources length={width} position='bottom' direction='row' />
+				<Tiles x={width} y={height} className={'tiles'} />
 			</div>
 		</div>
 	);
