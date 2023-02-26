@@ -26,24 +26,39 @@ const useGameUpdater = () => {
 };
 
 const GameContext = ({ children }) => {
-	const [gameState, setGameState] = useState({});
-	const GameState = useMemo(() => gameState, [gameState]);
-	const GameActions = useMemo(() => ({ setGameState }), []);
-	const [fetchedState, setFetchedState] = useState({});
+	const [fetchedState, setGameState] = useState({});
 	const [movesLeft, setMovesLeft] = useState();
 
 	useEffect(() => {
 		fetch(INIT_URL)
 			.then(res => res.json())
 			.then(res => {
-				setFetchedState(res);
+				setGameState(res);
 				const { maxMoves } = res;
 				setMovesLeft(maxMoves);
 			});
 	}, []);
     
-	const gameStateValue = useMemo(() => gameState, [gameState]);
-	const gameActionsValue = useMemo(() => ({ setGameState }), []);
+	const gameStateValue = useMemo(() => (
+		{
+			fetchedState,
+			movesLeft
+		}
+	)
+	, [
+		fetchedState,
+		movesLeft
+	]);
+    
+	const gameActionsValue = useMemo(() => (
+		{
+			setGameState,
+			setMovesLeft
+		}
+	), [
+		setGameState,
+		setMovesLeft
+	]);
 
 	return (
 		<GameStateContext.Provider value={gameStateValue}>
