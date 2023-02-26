@@ -1,9 +1,10 @@
 import './Sources.scss';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
 import classNames from 'classnames';
 import Source from 'components/ColorBox/Source';
+import { useColorState, useColorUpdater } from 'context/ColorContext';
 import { BLACK, RED, GREEN, BLUE } from 'constants/colorConstants';
 
 const createId = (ind, position, width, height) => {
@@ -35,23 +36,31 @@ const Sources = (
 	}
 ) => {
 	const [counter, setCounter] = useState(3);
+	const { colorSet } = useColorState();
 
-	const onClickSource = (ind, position) => {
+	const { updateColorSet } = useColorUpdater();
+
+	const onClickSource = (id) => {
 		if (counter === 0) return;
 		setMovesLeft(prev => {
 			if (prev < 0) return;
-			return prev-1;
+			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
+		updateColorSet(prev => ({ ...prev, [id]: setColor() }));
 	};
 
-	const setColor = () => {
+	const setColor = useCallback(() => {
 		switch (counter) {
-		case 2: return RED;
-		case 1: return GREEN;
-		case 0: return BLUE;
+		case 3: return RED;
+		case 2: return GREEN;
+		case 1: return BLUE;
 		default: return BLACK;
 		}
+	}, [counter]);
+
+	const getColor = (id) => {
+		return colorSet ? colorSet[id] : BLACK;
 	};
 
 	const SourcesRow = (
@@ -67,15 +76,18 @@ const Sources = (
 		});
 		return (
 			<ul className={ulClassName}>
-				{[...Array(length)].map((_, ind) => (
-					<Source
-						color={setColor()}
-						id={createId(ind, position,width, height)}
-						className={sourceClassName}
-						key={ind}
-						onClick={() => onClickSource(ind, position)}
-					/>
-				)
+				{[...Array(length)].map((_, ind) => {
+					const id = createId(ind, position,width, height);
+					return (
+						<Source
+							color={getColor(id)}
+							id={id}
+							className={sourceClassName}
+							key={ind}
+							onClick={() => onClickSource(id)}
+						/>
+					);
+				}
 				)}
 			</ul>
 		);

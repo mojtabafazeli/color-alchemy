@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext, createContext, useMemo } from 'react';
 import { node } from 'prop-types';
 import { useGameState } from 'context/GameContext';
 import { BLACK } from 'constants/colorConstants';
@@ -43,10 +43,14 @@ const ColorContext = ({ children }) => {
 	const { fetchedGameState: gameState } = useGameState();
 	const { width, height } = gameState;
 
-	const [colorSet, setColorSet] = useState(createColorMap(width, height));
-	const colorStateValue = useMemo(() => colorSet, [colorSet]);
-	const colorActionsValue = useMemo(() => ({ setColorSet }), []);
+	const [colorSet, updateColorSet] = useState();
 
+	const colorStateValue = useMemo(() => ({ colorSet }), [colorSet]);
+	const colorActionsValue = useMemo(() => ({ updateColorSet }), []);
+
+	useEffect(() => {
+		updateColorSet(createColorMap(width, height));
+	}, [width, height]);
 	return (
 		<ColorStateContext.Provider value={colorStateValue}>
 			<ColorUpdaterContext.Provider value={colorActionsValue}>
