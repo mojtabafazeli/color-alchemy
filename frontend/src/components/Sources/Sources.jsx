@@ -1,12 +1,14 @@
 import './Sources.scss';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
 import classNames from 'classnames';
 import Source from 'components/ColorBox/Source';
 import { useColorState, useColorUpdater } from 'context/ColorContext';
-import { BLACK, RED, GREEN, BLUE } from 'constants/colorConstants';
 import getColor from 'utils/color/getColor';
+import setPrimaryColor from 'utils/color/setPrimaryColor';
+import updateTilesColors from 'utils/color/updateTilesColors';
+
 
 const Sources = (
 	{
@@ -26,7 +28,9 @@ const Sources = (
 			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
-		updateColorSet(prev => ({ ...prev, [id]: setPrimaryColor(counter) }));
+		const sourceColor = setPrimaryColor(counter);
+		const tilesSet = updateTilesColors(id, sourceColor, width, height);
+		updateColorSet(prev => ({ ...prev,...tilesSet, [id]: sourceColor }));
 	};
 
 	const SourcesRow = (
@@ -105,11 +109,3 @@ function createId (ind, position, width, height) {
 	return `${xPos}-${yPos}`;
 }
 
-function setPrimaryColor (counter) {
-	switch (counter) {
-	case 3: return RED;
-	case 2: return GREEN;
-	case 1: return BLUE;
-	default: return BLACK;
-	}
-}
