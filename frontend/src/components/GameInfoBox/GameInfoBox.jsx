@@ -1,6 +1,6 @@
 import './GameInfoBox.scss';
 import React from 'react';
-import { string, number } from 'prop-types';
+import { string, number, array } from 'prop-types';
 import Tile from 'components/ColorBox/Tile';
 import {USER_ID, MOVES_LEFT, TARGET_COLOR, CLOSEST_COLOR } from 'constants/langConstants';
 
@@ -41,7 +41,7 @@ GameInfoBox.propTypes = {
 	userId: string,
 	targetColor: string,
 	closestColor: string,
-	target: string,
+	target: array,
 	movesLeft: number,
 	delta: string,
 };
