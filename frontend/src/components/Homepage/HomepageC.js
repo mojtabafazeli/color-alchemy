@@ -1,7 +1,7 @@
 import React from 'react';
 import Homepage from './Homepage';
 import { useGameState } from 'context/GameContext';
-import createRGB from 'utils/createRGB';
+import createRGB from 'utils/color/createRGB';
 
 const HomepageC = () => {  
 	const { fetchedGameState: gameState, movesLeft } = useGameState();

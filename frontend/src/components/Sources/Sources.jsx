@@ -6,26 +6,7 @@ import classNames from 'classnames';
 import Source from 'components/ColorBox/Source';
 import { useColorState, useColorUpdater } from 'context/ColorContext';
 import { BLACK, RED, GREEN, BLUE } from 'constants/colorConstants';
-
-const createId = (ind, position, width, height) => {
-	let xPos = ind+1;
-	let yPos = ind+1;
-	switch (position) {
-	case 'top':
-		yPos = 0;
-		break;
-	case 'bottom':
-		yPos = height + 1;
-		break;
-	case 'left':
-		xPos = 0;
-		break;
-	case 'right':
-		xPos = width + 1;
-		break;
-	}
-	return `${xPos}-${yPos}`;
-};
+import getColor from 'utils/color/getColor';
 
 const Sources = (
 	{
@@ -45,26 +26,8 @@ const Sources = (
 			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
-		updateColorSet(prev => ({ ...prev, [id]: setColor() }));
+		updateColorSet(prev => ({ ...prev, [id]: setPrimaryColor(counter) }));
 	};
-
-	const setColor = useCallback(() => {
-		switch (counter) {
-		case 3: return RED;
-		case 2: return GREEN;
-		case 1: return BLUE;
-		default: return BLACK;
-		}
-	}, [counter]);
-
-	const getColor = useCallback((id) => {
-		return colorSet ? colorSet[id] : BLACK;
-	}, [colorSet]);
-
-	const getTooltip = useCallback((id) => {
-		const color = colorSet ? colorSet[id] : BLACK;
-		return color && color.slice(4, color?.length - 1);
-	}, [colorSet]);
 
 	const SourcesRow = (
 		{
@@ -80,15 +43,17 @@ const Sources = (
 		return (
 			<ul className={ulClassName}>
 				{[...Array(length)].map((_, ind) => {
-					const id = createId(ind, position,width, height);
+					const id = createId(ind, position, width, height);
+					const color = getColor(colorSet, id);
+					const tooltip = color && color.slice(4, color?.length - 1);
 					return (
 						<Source
-							color={getColor(id)}
+							color={color}
 							id={id}
 							className={sourceClassName}
-							key={ind}
+							key={id}
 							onClick={() => onClickSource(id)}
-							tooltip={getTooltip(id) }
+							tooltip={tooltip}
 						/>
 					);
 				}
@@ -119,3 +84,32 @@ Sources.propTypes = {
 };
 
 export default Sources;
+
+function createId (ind, position, width, height) {
+	let xPos = ind+1;
+	let yPos = ind+1;
+	switch (position) {
+	case 'top':
+		yPos = 0;
+		break;
+	case 'bottom':
+		yPos = height + 1;
+		break;
+	case 'left':
+		xPos = 0;
+		break;
+	case 'right':
+		xPos = width + 1;
+		break;
+	}
+	return `${xPos}-${yPos}`;
+}
+
+function setPrimaryColor (counter) {
+	switch (counter) {
+	case 3: return RED;
+	case 2: return GREEN;
+	case 1: return BLUE;
+	default: return BLACK;
+	}
+}
