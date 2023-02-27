@@ -9,7 +9,6 @@ import getColor from 'utils/color/getColor';
 import setPrimaryColor from 'utils/color/setPrimaryColor';
 import updateTilesColors from 'utils/color/updateTilesColors';
 
-
 const Sources = (
 	{
 		width,
