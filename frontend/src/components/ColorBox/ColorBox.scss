@@ -1,6 +1,9 @@
+@import 'styles/default.css';
+
 .ColorBox {
     display: flex;
-    
+    position: relative;
+
     .box {
         display: inline-block;
         width: 20px;
@@ -15,5 +18,28 @@
 
     .source {
         border-radius: 50%;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        position: absolute;
+        display: inline-block;
+        z-index: 10;
+        top: 14px;
+        left: 20px;
+    }
+
+    .tooltipText {
+        background-color: var(--bgGray);
+        color: var(--black);
+        text-align: center;
+        padding: 3px 6px;
+        border-radius: 3px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    &:hover div {
+        visibility: visible;
     }
 }

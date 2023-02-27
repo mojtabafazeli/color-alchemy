@@ -12,9 +12,9 @@ const ColorBox = ({
 	className: propClassName,
 	type,
 	onClick = noop,
+	tooltip,
 }) => {   
 	const boxClassName = classNames('box', type, propClassName);
-
 	return (
 		<div className='ColorBox'>
 			<div
@@ -22,7 +22,10 @@ const ColorBox = ({
 				className={boxClassName}
 				style={{ backgroundColor: color }}
 				onClick={onClick}
-			>
+			/>
+			
+			<div className='tooltip'>
+				<span className='tooltipText'>{tooltip}</span>
 			</div>
 		</div>
 	);
@@ -34,6 +37,7 @@ ColorBox.propTypes = {
 	id: string,
 	className: string,
 	onClick: func,
+	tooltip: string,
 };
 
 export default ColorBox;

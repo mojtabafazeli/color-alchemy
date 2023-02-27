@@ -8,6 +8,7 @@ const GameInfoBox = ({
 	userId,
 	targetColor,
 	closestColor,
+	target,
 	movesLeft,
 	delta,
 }) => {
@@ -22,13 +23,13 @@ const GameInfoBox = ({
 			<div className='colorLine'>
 				<span>{TARGET_COLOR}</span>
                 
-				<Tile color={targetColor} />
+				<Tile color={targetColor} tooltip={target?.join(', ')} />
 			</div>
             
 			<div className='colorLine'>
 				<span>{CLOSEST_COLOR}</span>
                 
-				<Tile color={closestColor} />
+				<Tile color={closestColor} tooltip={closestColor?.join(', ')}/>
                 
 				<span>△ = {delta}</span>
 			</div>
@@ -40,6 +41,7 @@ GameInfoBox.propTypes = {
 	userId: string,
 	targetColor: string,
 	closestColor: string,
+	target: string,
 	movesLeft: number,
 	delta: string,
 };

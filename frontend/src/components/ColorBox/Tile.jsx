@@ -4,7 +4,12 @@ import { ColorBoxType } from 'constants/constants';
 
 
 const Tile = (props) => {
-	return <ColorBox {...props} type={ColorBoxType.TILE}/>; 
+	return (
+		<ColorBox
+			{...props}
+			type={ColorBoxType.TILE}
+		/>
+	); 
 };
 
 export default Tile;

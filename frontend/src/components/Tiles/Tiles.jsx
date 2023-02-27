@@ -1,8 +1,10 @@
 import './Tiles.scss';
-import React from 'react';
+import React, {useCallback} from 'react';
 import { number, string } from 'prop-types';
 import classNames from 'classnames';
 import Tile from 'components/ColorBox/Tile';
+import { useColorState } from 'context/ColorContext';
+import { BLACK } from 'constants/colorConstants';
 
 const createId = (ind, x, y) => {
 	const xPos = (ind + 1) % x === 0 ? x : (ind + 1) % x;
@@ -15,14 +17,20 @@ const createId = (ind, x, y) => {
 
 const Tiles = (
 	{
-		x,
-		y,
+		width,
+		height,
 		className: propClassName,
 	}) => {
-	const gridTemplateColumns = `repeat(${x}, 1fr)`;
-	const gridTemplateRows = `repeat(${y}, 1fr)`;
+	const gridTemplateColumns = `repeat(${width}, 1fr)`;
+	const gridTemplateRows = `repeat(${height}, 1fr)`;
 	const tilesClassName = classNames('Tiles', propClassName);
-	const tileNumbers = x * y || 0;
+	const { colorSet } = useColorState();
+	const tileNumbers = width * height || 0;
+
+	const getTooltip = useCallback((id) => {
+		const color = colorSet ? colorSet[id] : BLACK;
+		return color && color.slice(4, color?.length - 1);
+	}, [colorSet]);
     
 	return (
 		<ul
@@ -34,17 +42,24 @@ const Tiles = (
 			}
 			className={tilesClassName}
 		>
-			{[...Array(tileNumbers)].map((el, ind) => (
-				<Tile id={createId(ind,x,y)} key={ind} />
-			))}
+			{[...Array(tileNumbers)].map((el, ind) => {
+				const id = createId(ind, width, height);
+				return (
+					<Tile
+						id={id}
+						key={ind}
+						tooltip={getTooltip(id)}
+					/>
+				);
+			})}
 		</ul>
 	);
 
 };
 
 Tiles.propTypes = {
-	x: number,
-	y: number,
+	width: number,
+	height: number,
 	className: string
 };
 

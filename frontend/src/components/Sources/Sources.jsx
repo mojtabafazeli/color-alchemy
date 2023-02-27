@@ -24,7 +24,6 @@ const createId = (ind, position, width, height) => {
 		xPos = width + 1;
 		break;
 	}
-
 	return `${xPos}-${yPos}`;
 };
 
@@ -37,7 +36,6 @@ const Sources = (
 ) => {
 	const [counter, setCounter] = useState(3);
 	const { colorSet } = useColorState();
-
 	const { updateColorSet } = useColorUpdater();
 
 	const onClickSource = (id) => {
@@ -59,9 +57,14 @@ const Sources = (
 		}
 	}, [counter]);
 
-	const getColor = (id) => {
+	const getColor = useCallback((id) => {
 		return colorSet ? colorSet[id] : BLACK;
-	};
+	}, [colorSet]);
+
+	const getTooltip = useCallback((id) => {
+		const color = colorSet ? colorSet[id] : BLACK;
+		return color && color.slice(4, color?.length - 1);
+	}, [colorSet]);
 
 	const SourcesRow = (
 		{
@@ -85,6 +88,7 @@ const Sources = (
 							className={sourceClassName}
 							key={ind}
 							onClick={() => onClickSource(id)}
+							tooltip={getTooltip(id) }
 						/>
 					);
 				}

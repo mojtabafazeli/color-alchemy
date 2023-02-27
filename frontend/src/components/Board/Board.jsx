@@ -15,7 +15,7 @@ const Board = ({
 		<div className='Board'>
 			<div className='boardGrid'>
 				<Sources width={width} height={height} setMovesLeft={setMovesLeft}/>
-				<Tiles x={width} y={height} className={'tiles'} setMovesLeft={setMovesLeft}/>
+				<Tiles width={width} height={height} className={'tiles'} setMovesLeft={setMovesLeft}/>
 			</div>
 		</div>
 	);

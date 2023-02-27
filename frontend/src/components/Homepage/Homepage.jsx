@@ -10,6 +10,7 @@ const Homepage = ({
 		userId,
 		width,
 		height,
+		target,
 		targetColor,
 		movesLeft,
 	} = gameState;
@@ -18,6 +19,7 @@ const Homepage = ({
 		<div className='Board'>
 			<GameInfoBox
 				userId={userId}
+				target={target}
 				targetColor={targetColor}
 				movesLeft={movesLeft}
 			/>
