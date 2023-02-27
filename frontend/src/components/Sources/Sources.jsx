@@ -8,6 +8,7 @@ import { useColorState, useColorUpdater } from 'context/ColorContext';
 import getColor from 'utils/color/getColor';
 import setPrimaryColor from 'utils/color/setPrimaryColor';
 import updateTilesColors from 'utils/color/updateTilesColors';
+import getRGBString from 'utils/color/getRGBString';
 
 const Sources = (
 	{
@@ -20,7 +21,7 @@ const Sources = (
 	const { colorSet } = useColorState();
 	const { updateColorSet } = useColorUpdater();
 
-	const onClickSource = (id) => {
+	const onClickSource = (sourceId) => {
 		if (counter === 0) return;
 		setMovesLeft(prev => {
 			if (prev < 0) return;
@@ -28,8 +29,8 @@ const Sources = (
 		});
 		setCounter(prev => prev - 1);
 		const sourceColor = setPrimaryColor(counter);
-		const tilesSet = updateTilesColors(id, sourceColor, width, height);
-		updateColorSet(prev => ({ ...prev,...tilesSet, [id]: sourceColor }));
+		const tilesSet = updateTilesColors(sourceId, sourceColor, colorSet, width, height);
+		updateColorSet(prev => ({ ...prev,...tilesSet, [sourceId]: sourceColor }));
 	};
 
 	const SourcesRow = (
@@ -48,7 +49,7 @@ const Sources = (
 				{[...Array(length)].map((_, ind) => {
 					const id = createId(ind, position, width, height);
 					const color = getColor(colorSet, id);
-					const tooltip = color && color.slice(4, color?.length - 1);
+					const tooltip = getRGBString(color);
 					return (
 						<Source
 							color={color}

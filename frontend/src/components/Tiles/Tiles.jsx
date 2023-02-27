@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import Tile from 'components/ColorBox/Tile';
 import { useColorState } from 'context/ColorContext';
 import getColor from 'utils/color/getColor';
+import getRGBString from 'utils/color/getRGBString';
 
 const Tiles = (
 	{
@@ -31,7 +32,7 @@ const Tiles = (
 			{[...Array(tileNumbers)].map((el, ind) => {
 				const id = createId(ind, width, height);
 				const color = getColor(colorSet, id);
-				const tooltip = color && color.slice(4, color?.length - 1);
+				const tooltip = getRGBString(color);
 				return (
 					<Tile
 						id={id}
