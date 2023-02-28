@@ -32,7 +32,7 @@ const GameInfoBox = ({
                 
 				<Tile color={closestColor} tooltip={closestColorTooltip}/>
                 
-				<span>△ = {delta}</span>
+				<span>△ = {delta}%</span>
 			</div>
 		</div>
 	);
