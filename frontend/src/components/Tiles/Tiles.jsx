@@ -16,7 +16,7 @@ const Tiles = (
 	const gridTemplateColumns = `repeat(${width}, 1fr)`;
 	const gridTemplateRows = `repeat(${height}, 1fr)`;
 	const tilesClassName = classNames('Tiles', propClassName);
-	const { colorSet } = useColorState();
+	const { tilesColorsSet } = useColorState();
 	const tileNumbers = width * height || 0;
     
 	return (
@@ -31,7 +31,7 @@ const Tiles = (
 		>
 			{[...Array(tileNumbers)].map((el, ind) => {
 				const id = createId(ind, width, height);
-				const color = getColor(colorSet, id);
+				const color = getColor(tilesColorsSet, id);
 				const tooltip = getRGBString(color);
 				return (
 					<Tile

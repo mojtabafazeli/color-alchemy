@@ -1,6 +1,6 @@
 import './Sources.scss';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
 import { confirmAlert } from 'react-confirm-alert';
@@ -12,7 +12,8 @@ import setPrimaryColor from 'utils/color/setPrimaryColor';
 import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
-import { RED, GREEN, BLUE } from 'constants/colorConstants';
+import calcDelta from 'utils/color/calcDelta';
+import { RED, GREEN, BLUE, BLACK, INITIAL_DELTA } from 'constants/colorConstants';
 
 const Sources = (
 	{
@@ -22,11 +23,13 @@ const Sources = (
 	}
 ) => {
 	const [counter, setCounter] = useState(3);
-	const { colorSet } = useColorState();
-	const { updateColorSet,resetColorSet } = useColorUpdater();
+	const [delta, setDelta] = useState(INITIAL_DELTA);
+	const [closestColor, setClosestColor] = useState(BLACK);
+	const [closestId, setClosestId] = useState(BLACK);
+	const { tilesColorsSet, sourcesColorsSet } = useColorState();
+	const { updateTilesColorsSet, updateSourcesColorsSet, resetColorSet } = useColorUpdater();
 	const { fetchedGameState: gameState, movesLeft } = useGameState();
 	const { resetGame } = useGameUpdater();
-
 	if (movesLeft === 0) {
 		confirmAlert({
 			title: 'Your score is 100',
@@ -55,26 +58,51 @@ const Sources = (
 		});
 	}
 
+	const findClosestColor = useCallback(() => {
+		const tilesColorsArray = tilesColorsSet && Object.entries(tilesColorsSet);
+		const { target } = gameState;
+		tilesColorsArray?.forEach(([id, c]) => {
+			if (c === 'rgb(0,0,0)') return;
+			let currDelta = INITIAL_DELTA;
+			let currClosest = '';
+			let currId = '';
+			const d = calcDelta(c, target);
+			if (d <= currDelta) {
+				currDelta = d ;
+				currClosest = c;
+				currId = id;
+			}
+			setDelta(currDelta);
+			setClosestColor(currClosest);
+			setClosestId(currId);
+		});
+	}, [gameState, tilesColorsSet]);
+	
 	const onClickSource = (sourceId) => {
-		if (counter === 0 || [RED, GREEN, BLUE].includes(colorSet?.[sourceId])
+		if (counter === 0 || [RED, GREEN, BLUE].includes(sourcesColorsSet?.[sourceId])
 		) return;
+		console.log('color is ', sourcesColorsSet?.[sourceId]);
 		setMovesLeft(prev => {
 			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
 		const sourceColor = setPrimaryColor(counter);
-		const tilesSet = updateTilesColors(sourceId, sourceColor, colorSet, width, height);
-		updateColorSet(prev => ({ ...prev,...tilesSet, [sourceId]: sourceColor }));
+		const tilesSet = updateTilesColors(sourceId, sourceColor, tilesColorsSet, width, height);
+		findClosestColor();
+		updateTilesColorsSet(prev => ({ ...prev,...tilesSet}));
+		updateSourcesColorsSet(prev => ({ ...prev, [sourceId]: sourceColor }));
 	};
 
-	const onDrop = (color, id) => {
+	const onDrop = (color, sourceId) => {
 		if (movesLeft === null) return;
 		setMovesLeft(prev => {
 			return prev - 1;
 		});
 		const sourceColor = color.color;
-		const tilesSet = updateTilesColors(id, sourceColor, colorSet, width, height);
-		updateColorSet(prev => ({ ...prev,...tilesSet, [id]: sourceColor }));
+		const tilesSet = updateTilesColors(sourceId, sourceColor, tilesColorsSet, width, height);
+		findClosestColor();
+		updateTilesColorsSet(prev => ({ ...prev,...tilesSet}));
+		updateSourcesColorsSet(prev => ({ ...prev, [sourceId]: sourceColor }));
 	};
 
 	const SourcesRow = (
@@ -92,7 +120,7 @@ const Sources = (
 			<ul className={ulClassName}>
 				{[...Array(length)].map((_, ind) => {
 					const id = createId(ind, position, width, height);
-					const color = getColor(colorSet, id);
+					const color = getColor(sourcesColorsSet, id);
 					const tooltip = getRGBString(color);
 					return (
 						<Source

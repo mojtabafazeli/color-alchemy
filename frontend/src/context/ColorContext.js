@@ -2,17 +2,14 @@ import React, { useState, useEffect, useContext, createContext, useMemo } from '
 import { node } from 'prop-types';
 import { useGameState } from 'context/GameContext';
 import { BLACK } from 'constants/colorConstants';
-const createColorMap = (width, height) => {
-	let colorMap = {};
-	for (let i = 0; i <= width + 1; i++) {
-		for (let j = 0; j <= height + 1; j++) {
-			colorMap[`${i}-${j}`] = BLACK;
+const createTileColorSet = (width, height) => {
+	let tileColorMap = {};
+	for (let i = 1; i <= width; i++) {
+		for (let j = 1; j <= height; j++) {
+			tileColorMap[`${i}-${j}`] = BLACK;
 		}
 	}
-
-	delete colorMap['0-0'];
-
-	return colorMap;
+	return tileColorMap;
 };
 
 const ColorStateContext = createContext(null);
@@ -41,17 +38,19 @@ const useColorUpdater = () => {
 const ColorContext = ({ children }) => {
 	const { fetchedGameState: gameState } = useGameState();
 	const { width, height } = gameState;
-	const [colorSet, updateColorSet] = useState();
+	const [tilesColorsSet, updateTilesColorsSet] = useState();
+	const [sourcesColorsSet, updateSourcesColorsSet] = useState();
 
 	const resetColorSet = () => {
-		updateColorSet(createColorMap(width, height));
+		updateTilesColorsSet();
+		updateTilesColorsSet();
 	};
 
-	const colorStateValue = useMemo(() => ({ colorSet }), [colorSet]);
-	const colorActionsValue = useMemo(() => ({ updateColorSet, resetColorSet }), []);
-
+	const colorStateValue = useMemo(() => ({ tilesColorsSet, sourcesColorsSet }), [tilesColorsSet, sourcesColorsSet]);
+	const colorActionsValue = useMemo(() => ({ updateTilesColorsSet, updateSourcesColorsSet, resetColorSet }), []);
 	useEffect(() => {
-		updateColorSet(createColorMap(width, height));
+		updateTilesColorsSet();
+		updateTilesColorsSet();
 	}, [width, height]);
 	return (
 		<ColorStateContext.Provider value={colorStateValue}>
