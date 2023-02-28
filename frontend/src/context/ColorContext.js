@@ -35,6 +35,7 @@ const ColorContext = ({ children }) => {
 	const [closestId, setClosestId] = useState();
 
 	const resetColorSet = () => {
+		setDelta(calcDelta('0,0,0', target));
 		updateTilesColorsSet(null);
 		updateSourcesColorsSet(null);
 	};

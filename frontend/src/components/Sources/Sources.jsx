@@ -50,9 +50,7 @@ const Sources = (
 				{
 					label: 'No',
 					onClick: () => {
-						setDelta(INITIAL_DELTA);
-						setMovesLeft(null);
-						// resetColorSet();
+						setMovesLeft(0);
 					}
 				}
 			],
