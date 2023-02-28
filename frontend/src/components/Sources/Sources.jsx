@@ -13,7 +13,7 @@ import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
 import calcDelta from 'utils/color/calcDelta';
-import { RED, GREEN, BLUE, BLACK, INITIAL_DELTA } from 'constants/colorConstants';
+import { RED, GREEN, BLUE, INITIAL_DELTA } from 'constants/colorConstants';
 
 const Sources = (
 	{
@@ -23,11 +23,9 @@ const Sources = (
 	}
 ) => {
 	const [counter, setCounter] = useState(3);
-	const [delta, setDelta] = useState(INITIAL_DELTA);
-	const [closestColor, setClosestColor] = useState(BLACK);
-	const [closestId, setClosestId] = useState(BLACK);
-	const { tilesColorsSet, sourcesColorsSet } = useColorState();
-	const { updateTilesColorsSet, updateSourcesColorsSet, resetColorSet } = useColorUpdater();
+	
+	const { tilesColorsSet, sourcesColorsSet, delta, closestId } = useColorState();
+	const { updateTilesColorsSet, updateSourcesColorsSet, setDelta, setClosestId, resetColorSet } = useColorUpdater();
 	const { fetchedGameState: gameState, movesLeft } = useGameState();
 	const { resetGame } = useGameUpdater();
 	if (movesLeft === 0) {
@@ -61,35 +59,30 @@ const Sources = (
 	const findClosestColor = useCallback(() => {
 		const tilesColorsArray = tilesColorsSet && Object.entries(tilesColorsSet);
 		const { target } = gameState;
+		let currDelta = delta || INITIAL_DELTA;
+		let currId = closestId || '';
 		tilesColorsArray?.forEach(([id, c]) => {
-			if (c === 'rgb(0,0,0)') return;
-			let currDelta = INITIAL_DELTA;
-			let currClosest = '';
-			let currId = '';
 			const d = calcDelta(c, target);
 			if (d <= currDelta) {
 				currDelta = d ;
-				currClosest = c;
 				currId = id;
 			}
-			setDelta(currDelta);
-			setClosestColor(currClosest);
-			setClosestId(currId);
 		});
+		setDelta(currDelta);
+		setClosestId(currId);
 	}, [gameState, tilesColorsSet]);
 	
 	const onClickSource = (sourceId) => {
 		if (counter === 0 || [RED, GREEN, BLUE].includes(sourcesColorsSet?.[sourceId])
 		) return;
-		console.log('color is ', sourcesColorsSet?.[sourceId]);
 		setMovesLeft(prev => {
 			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
 		const sourceColor = setPrimaryColor(counter);
 		const tilesSet = updateTilesColors(sourceId, sourceColor, tilesColorsSet, width, height);
-		findClosestColor();
 		updateTilesColorsSet(prev => ({ ...prev,...tilesSet}));
+		findClosestColor();
 		updateSourcesColorsSet(prev => ({ ...prev, [sourceId]: sourceColor }));
 	};
 

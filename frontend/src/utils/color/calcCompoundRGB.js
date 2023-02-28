@@ -2,7 +2,6 @@ import { MAX_FACTOR } from 'constants/colorConstants';
 import getRGBString from 'utils/color/getRGBString';
 
 const calcCompoundRGB = (tileColor, sourceColor, ind, l) => {
-	console.log(tileColor, sourceColor, ind, l);
 	const sColArr = getRGBString(sourceColor).split(',');
 	const [sr, sg, sb] = sColArr;
 

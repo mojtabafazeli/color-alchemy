@@ -1,16 +1,20 @@
 import React from 'react';
 import { string, array } from 'prop-types';
 import GameInfoBox from './GameInfoBox';
+import { useColorState } from 'context/ColorContext';
+import getRGBString from 'utils/color/getRGBString';
 
 
 const GameInfoBoxC = ({ target, ...props }) => {
-
+	const { tilesColorsSet, delta, closestId } = useColorState(); 
+	const closestColor = tilesColorsSet?.[closestId];
+	const closestTooltip = getRGBString(closestColor);
 	return (
 		<GameInfoBox
 			target={target}
-			closestColor={''}
-			closestColorTooltip={''}
-			delta={''}
+			closestColor={closestColor}
+			closestColorTooltip={closestTooltip}
+			delta={delta === 100 ? null : delta}
 			{...props}
 		/>
 	);

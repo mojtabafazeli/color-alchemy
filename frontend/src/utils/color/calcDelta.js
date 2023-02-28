@@ -18,7 +18,7 @@ const calcDelta = (colorA, colorB) => {
 		)
 		)/100;
 
-	return delta;
+	return delta.toFixed(2);
 };
 
 export default calcDelta;
