@@ -61,19 +61,15 @@ const Sources = (
 	const findClosestColor = () => {
 		const tilesColorsArray = tilesColorsSet && Object.entries(tilesColorsSet);
 		const { target } = gameState;
-		let currDelta = delta;
-		let currId = closestId || '';
 		tilesColorsArray?.forEach(([id, c]) => {
 			const d = calcDelta(c, target);
-			if (d <= currDelta) {
-				currDelta = d ;
-				currId = id;
+			if (d <= delta) {
+				setDelta(d);
+				setClosestId(id);
 			}
 		});
-		setDelta(currDelta);
-		setClosestId(currId);
 	};
-	
+	console.log('2 ', closestId);
 	const onClickSource = (sourceId) => {
 		if (counter === 0 || [RED, GREEN, BLUE].includes(sourcesColorsSet?.[sourceId])
 		) return;

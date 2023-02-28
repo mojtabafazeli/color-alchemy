@@ -6,6 +6,7 @@ import Tile from 'components/ColorBox/Tile';
 import { useColorState } from 'context/ColorContext';
 import getColor from 'utils/color/getColor';
 import getRGBString from 'utils/color/getRGBString';
+import { BLACK } from 'constants/colorConstants';
 
 const Tiles = (
 	{
@@ -33,7 +34,7 @@ const Tiles = (
 				const id = createId(ind, width, height);
 				const color = getColor(tilesColorsSet, id);
 				const tooltip = getRGBString(color);
-				const className = id === closestId ? 'bordered' : '';
+				const className = id === closestId && color !== BLACK ? 'bordered' : '';
 				return (
 					<Tile
 						className={className}
