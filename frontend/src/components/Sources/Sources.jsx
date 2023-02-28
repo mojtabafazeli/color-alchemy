@@ -12,6 +12,7 @@ import setPrimaryColor from 'utils/color/setPrimaryColor';
 import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
+import { RED, GREEN, BLUE } from 'constants/colorConstants';
 
 const Sources = (
 	{
@@ -56,7 +57,7 @@ const Sources = (
 	}
 
 	const onClickSource = (sourceId) => {
-		if (counter === 0) return;
+		if (counter === 0 || [RED, GREEN, BLUE].includes(colorSet[sourceId]) ) return;
 		setMovesLeft(prev => {
 			return prev - 1;
 		});
