@@ -1,6 +1,6 @@
 import React from 'react';
 import { object } from 'prop-types';
-import GameInfoBox from 'components/GameInfoBox/GameInfoBox';
+import GameInfoBoxC from 'components/GameInfoBox/GameInfoBoxC';
 import BoardC from 'components/Board/BoardC';
 
 const Homepage = ({
@@ -17,7 +17,7 @@ const Homepage = ({
 
 	return (
 		<div className='Board'>
-			<GameInfoBox
+			<GameInfoBoxC
 				userId={userId}
 				target={target}
 				targetColor={targetColor}

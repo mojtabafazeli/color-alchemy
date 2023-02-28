@@ -23,7 +23,7 @@ const Sources = (
 ) => {
 	const [counter, setCounter] = useState(3);
 	const { colorSet } = useColorState();
-	const { updateColorSet, resetColorSet } = useColorUpdater();
+	const { updateColorSet,resetColorSet } = useColorUpdater();
 	const { fetchedGameState: gameState, movesLeft } = useGameState();
 	const { resetGame } = useGameUpdater();
 
@@ -45,7 +45,6 @@ const Sources = (
 				{
 					label: 'No',
 					onClick: () => {
-						console.log(counter);
 						setMovesLeft(null);
 						resetColorSet();
 					}
@@ -57,7 +56,8 @@ const Sources = (
 	}
 
 	const onClickSource = (sourceId) => {
-		if (counter === 0 || [RED, GREEN, BLUE].includes(colorSet[sourceId]) ) return;
+		if (counter === 0 || [RED, GREEN, BLUE].includes(colorSet?.[sourceId])
+		) return;
 		setMovesLeft(prev => {
 			return prev - 1;
 		});
@@ -153,4 +153,3 @@ function createId (ind, position, width, height) {
 	}
 	return `${xPos}-${yPos}`;
 }
-

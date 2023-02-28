@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, createContext, useMemo } from '
 import { node } from 'prop-types';
 import { useGameState } from 'context/GameContext';
 import { BLACK } from 'constants/colorConstants';
-
 const createColorMap = (width, height) => {
 	let colorMap = {};
 	for (let i = 0; i <= width + 1; i++) {
@@ -42,7 +41,6 @@ const useColorUpdater = () => {
 const ColorContext = ({ children }) => {
 	const { fetchedGameState: gameState } = useGameState();
 	const { width, height } = gameState;
-
 	const [colorSet, updateColorSet] = useState();
 
 	const resetColorSet = () => {

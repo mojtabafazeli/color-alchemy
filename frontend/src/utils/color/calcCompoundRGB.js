@@ -1,20 +1,16 @@
 import { MAX_FACTOR } from 'constants/colorConstants';
 import getRGBString from 'utils/color/getRGBString';
 
-const calcRGB = (tileColor, sourceColor, ind, l) => {
+const calcCompoundRGB = (tileColor, sourceColor, ind, l) => {
 	const sColArr = getRGBString(sourceColor).split(',');
-	const sr = +sColArr[0];
-	const sg = +sColArr[1];
-	const sb = +sColArr[2];
+	const [sr, sg, sb] = sColArr;
 
 	const tColArr = getRGBString(tileColor).split(',');
-	const tr = +tColArr[0];
-	const tg = +tColArr[1];
-	const tb = +tColArr[2];
+	const [tr, tg, tb] = tColArr;
 
-	let r = (sr + tr); 
-	let g = (sg + tg);
-	let b = (sb + tb);
+	let r = (+sr + +tr); 
+	let g = (+sg + +tg);
+	let b = (+sb + +tb);
 
 	const f = MAX_FACTOR(r, g, b);
 	r = r * f;
@@ -24,4 +20,4 @@ const calcRGB = (tileColor, sourceColor, ind, l) => {
 	return `rgb(${Math.floor(r*ind/l)},${Math.floor(g*ind/l)},${Math.floor(b*ind/l)})`;
 };
 
-export default calcRGB;
+export default calcCompoundRGB;

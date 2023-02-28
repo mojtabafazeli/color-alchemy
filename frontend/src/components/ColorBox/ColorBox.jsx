@@ -47,9 +47,11 @@ const ColorBox = ({
 					)
 			}
 			
-			<div className='tooltip'>
-				<span className='tooltipText'>{tooltip}</span>
-			</div>
+			{ !!tooltip &&
+				<div className='tooltip'>
+					<span className='tooltipText'>{tooltip}</span>
+				</div>
+			}
 		</div>
 	);
 };

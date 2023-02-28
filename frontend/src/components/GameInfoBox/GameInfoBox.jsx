@@ -8,6 +8,7 @@ const GameInfoBox = ({
 	userId,
 	targetColor,
 	closestColor,
+	closestColorTooltip,
 	target,
 	movesLeft,
 	delta,
@@ -29,7 +30,7 @@ const GameInfoBox = ({
 			<div className='colorLine'>
 				<span>{CLOSEST_COLOR}</span>
                 
-				<Tile color={closestColor} tooltip={closestColor?.join(', ')}/>
+				<Tile color={closestColor} tooltip={closestColorTooltip}/>
                 
 				<span>△ = {delta}</span>
 			</div>
@@ -41,9 +42,10 @@ GameInfoBox.propTypes = {
 	userId: string,
 	targetColor: string,
 	closestColor: string,
+	closestColorTooltip: string,
 	target: array,
 	movesLeft: number,
-	delta: string,
+	delta: number,
 };
 
 export default GameInfoBox;
