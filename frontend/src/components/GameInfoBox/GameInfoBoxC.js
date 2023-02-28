@@ -9,12 +9,13 @@ const GameInfoBoxC = ({ target, ...props }) => {
 	const { tilesColorsSet, delta, closestId } = useColorState(); 
 	const closestColor = tilesColorsSet?.[closestId];
 	const closestTooltip = getRGBString(closestColor);
+
 	return (
 		<GameInfoBox
 			target={target}
 			closestColor={closestColor}
 			closestColorTooltip={closestTooltip}
-			delta={delta === 100 ? null : +delta}
+			delta={delta}
 			{...props}
 		/>
 	);

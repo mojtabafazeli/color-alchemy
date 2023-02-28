@@ -42,4 +42,8 @@
     &:hover div {
         visibility: visible;
     }
+
+    .bordered {
+        border: 1px var(--red) solid;
+    }
 }

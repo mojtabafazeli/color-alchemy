@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useMemo, useEffect } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 import { node } from 'prop-types';
 import { INIT_URL } from 'constants/apiConstants';
 import { RESET_URL } from '../constants/apiConstants';
@@ -51,28 +51,20 @@ const GameContext = ({ children }) => {
 			});
 	}, []);
     
-	const gameStateValue = useMemo(() => (
+	const gameStateValue = 
 		{
 			fetchedGameState,
 			movesLeft
-		}
-	)
-	, [
-		fetchedGameState,
-		movesLeft
-	]);
+		};
+
     
-	const gameActionsValue = useMemo(() => (
+	const gameActionsValue = 
 		{
 			setGameState,
 			setMovesLeft,
 			resetGame
-		}
-	), [
-		setGameState,
-		setMovesLeft,
-		resetGame
-	]);
+		};
+	
 
 	return (
 		<GameStateContext.Provider value={gameStateValue}>

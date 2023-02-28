@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, createContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import { node } from 'prop-types';
 import { useGameState } from 'context/GameContext';
-import { INITIAL_DELTA } from 'constants/constants';
+import calcDelta from 'utils/color/calcDelta';
 
 const ColorStateContext = createContext(null);
 const ColorUpdaterContext = createContext(null);
@@ -28,10 +28,10 @@ const useColorUpdater = () => {
 
 const ColorContext = ({ children }) => {
 	const { fetchedGameState: gameState } = useGameState();
-	const { width, height } = gameState;
+	const { target } = gameState;
 	const [tilesColorsSet, updateTilesColorsSet] = useState();
 	const [sourcesColorsSet, updateSourcesColorsSet] = useState();
-	const [delta, setDelta] = useState(INITIAL_DELTA);
+	const [delta, setDelta] = useState(calcDelta('0,0,0', target));
 	const [closestId, setClosestId] = useState();
 
 	const resetColorSet = () => {
@@ -39,12 +39,11 @@ const ColorContext = ({ children }) => {
 		updateSourcesColorsSet(null);
 	};
 
-	const colorStateValue = useMemo(() => ({ tilesColorsSet, sourcesColorsSet, delta, closestId }), [tilesColorsSet, sourcesColorsSet]);
-	const colorActionsValue = useMemo(() => ({ updateTilesColorsSet, updateSourcesColorsSet, setDelta, setClosestId, resetColorSet }), []);
+	const colorStateValue = { tilesColorsSet, sourcesColorsSet, delta, closestId };
+	const colorActionsValue = { updateTilesColorsSet, updateSourcesColorsSet, setDelta, setClosestId, resetColorSet };
 	useEffect(() => {
-		updateTilesColorsSet();
-		updateTilesColorsSet();
-	}, [width, height]);
+		setDelta(calcDelta('0,0,0', target));
+	}, [target]);
 	return (
 		<ColorStateContext.Provider value={colorStateValue}>
 			<ColorUpdaterContext.Provider value={colorActionsValue}>

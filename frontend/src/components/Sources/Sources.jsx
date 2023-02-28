@@ -1,6 +1,6 @@
 import './Sources.scss';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
 import { confirmAlert } from 'react-confirm-alert';
@@ -40,7 +40,7 @@ const Sources = (
 				{
 					label: 'Yes',
 					onClick: () => {
-						setDelta(INITIAL_DELTA);
+						setDelta(delta);
 						setCounter(3);
 						setMovesLeft(20);
 						resetGame(gameState.userId);
@@ -61,10 +61,10 @@ const Sources = (
 		});
 	}
 
-	const findClosestColor = useCallback(() => {
+	const findClosestColor = () => {
 		const tilesColorsArray = tilesColorsSet && Object.entries(tilesColorsSet);
 		const { target } = gameState;
-		let currDelta = delta || INITIAL_DELTA;
+		let currDelta = delta;
 		let currId = closestId || '';
 		tilesColorsArray?.forEach(([id, c]) => {
 			const d = calcDelta(c, target);
@@ -75,7 +75,7 @@ const Sources = (
 		});
 		setDelta(currDelta);
 		setClosestId(currId);
-	}, [gameState, tilesColorsSet]);
+	};
 	
 	const onClickSource = (sourceId) => {
 		if (counter === 0 || [RED, GREEN, BLUE].includes(sourcesColorsSet?.[sourceId])
