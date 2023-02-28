@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, useMemo, useEffect } from 'react';
 import { node } from 'prop-types';
 import { INIT_URL } from 'constants/apiConstants';
+import { RESET_URL } from '../constants/apiConstants';
 
 const GameStateContext = createContext(null);
 const GameUpdaterContext = createContext(null);
@@ -29,6 +30,17 @@ const GameContext = ({ children }) => {
 	const [fetchedGameState, setGameState] = useState({});
 	const [movesLeft, setMovesLeft] = useState();
 
+	const resetGame = (id) => {
+		const url = RESET_URL(id);
+		fetch(url)
+			.then(res => res.json())
+			.then(res => {
+				setGameState(res);
+				const { maxMoves } = res;
+				setMovesLeft(maxMoves);
+			});
+	};
+
 	useEffect(() => {
 		fetch(INIT_URL)
 			.then(res => res.json())
@@ -53,11 +65,13 @@ const GameContext = ({ children }) => {
 	const gameActionsValue = useMemo(() => (
 		{
 			setGameState,
-			setMovesLeft
+			setMovesLeft,
+			resetGame
 		}
 	), [
 		setGameState,
-		setMovesLeft
+		setMovesLeft,
+		resetGame
 	]);
 
 	return (

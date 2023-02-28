@@ -45,8 +45,12 @@ const ColorContext = ({ children }) => {
 
 	const [colorSet, updateColorSet] = useState();
 
+	const resetColorSet = () => {
+		updateColorSet(createColorMap(width, height));
+	};
+
 	const colorStateValue = useMemo(() => ({ colorSet }), [colorSet]);
-	const colorActionsValue = useMemo(() => ({ updateColorSet }), []);
+	const colorActionsValue = useMemo(() => ({ updateColorSet, resetColorSet }), []);
 
 	useEffect(() => {
 		updateColorSet(createColorMap(width, height));

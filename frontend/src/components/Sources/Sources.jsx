@@ -1,7 +1,9 @@
 import './Sources.scss';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import React, { useState } from 'react';
 import { string, number, func } from 'prop-types';
 import noop from 'lodash/noop';
+import { confirmAlert } from 'react-confirm-alert';
 import classNames from 'classnames';
 import Source from 'components/ColorBox/Source';
 import { useColorState, useColorUpdater } from 'context/ColorContext';
@@ -9,6 +11,7 @@ import getColor from 'utils/color/getColor';
 import setPrimaryColor from 'utils/color/setPrimaryColor';
 import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
+import { useGameState, useGameUpdater } from 'context/GameContext';
 
 const Sources = (
 	{
@@ -19,12 +22,42 @@ const Sources = (
 ) => {
 	const [counter, setCounter] = useState(3);
 	const { colorSet } = useColorState();
-	const { updateColorSet } = useColorUpdater();
+	const { updateColorSet, resetColorSet } = useColorUpdater();
+	const { fetchedGameState: gameState, movesLeft } = useGameState();
+	const { resetGame } = useGameUpdater();
+
+	if (movesLeft === 0) {
+		confirmAlert({
+			title: 'Your score is 100',
+			message: 'Do you want to play again?',
+			onClickOutside: null,
+			buttons: [
+				{
+					label: 'Yes',
+					onClick: () => {
+						setCounter(3);
+						setMovesLeft(20);
+						resetGame(gameState.userId);
+						resetColorSet();
+					}
+				},
+				{
+					label: 'No',
+					onClick: () => {
+						console.log(counter);
+						setMovesLeft(null);
+						resetColorSet();
+					}
+				}
+			],
+			onCancel: null, 
+			overlayClassName: 'overlay-custom-class-name'
+		});
+	}
 
 	const onClickSource = (sourceId) => {
 		if (counter === 0) return;
 		setMovesLeft(prev => {
-			if (prev < 0) return;
 			return prev - 1;
 		});
 		setCounter(prev => prev - 1);
@@ -34,6 +67,10 @@ const Sources = (
 	};
 
 	const onDrop = (color, id) => {
+		if (movesLeft === null) return;
+		setMovesLeft(prev => {
+			return prev - 1;
+		});
 		const sourceColor = color.color;
 		const tilesSet = updateTilesColors(id, sourceColor, colorSet, width, height);
 		updateColorSet(prev => ({ ...prev,...tilesSet, [id]: sourceColor }));
