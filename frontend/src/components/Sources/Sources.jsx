@@ -49,6 +49,7 @@ const Sources = (
 				{
 					label: 'No',
 					onClick: () => {
+						setCounter(0);
 						setMovesLeft(0);
 					}
 				}
@@ -69,7 +70,7 @@ const Sources = (
 			}
 		});
 	};
-	console.log('2 ', closestId);
+
 	const onClickSource = (sourceId) => {
 		if (counter === 0 || [RED, GREEN, BLUE].includes(sourcesColorsSet?.[sourceId])
 		) return;
