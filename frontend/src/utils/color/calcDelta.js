@@ -16,7 +16,7 @@ const calcDelta = (colorA, colorB) => {
 				*Math.pow(+b1 - +b2, 2)
 			)
 		)
-		)/100;
+		);
 
 	return delta.toFixed(2);
 };

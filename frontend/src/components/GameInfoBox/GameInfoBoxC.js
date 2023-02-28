@@ -14,7 +14,7 @@ const GameInfoBoxC = ({ target, ...props }) => {
 			target={target}
 			closestColor={closestColor}
 			closestColorTooltip={closestTooltip}
-			delta={delta === 100 ? null : delta}
+			delta={delta === 100 ? null : +delta}
 			{...props}
 		/>
 	);

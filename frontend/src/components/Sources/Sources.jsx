@@ -13,7 +13,8 @@ import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
 import calcDelta from 'utils/color/calcDelta';
-import { RED, GREEN, BLUE, INITIAL_DELTA, SUCCESS_SCORE } from 'constants/colorConstants';
+import { RED, GREEN, BLUE } from 'constants/colorConstants';
+import { MAX_SOURCE_CLICK , INITIAL_DELTA, SUCCESS_SCORE } from 'constants/constants';
 
 const Sources = (
 	{
@@ -22,7 +23,7 @@ const Sources = (
 		setMovesLeft= noop,
 	}
 ) => {
-	const [counter, setCounter] = useState(3);
+	const [counter, setCounter] = useState(MAX_SOURCE_CLICK );
 	
 	const { tilesColorsSet, sourcesColorsSet, delta, closestId } = useColorState();
 	const { updateTilesColorsSet, updateSourcesColorsSet, setDelta, setClosestId, resetColorSet } = useColorUpdater();
@@ -51,7 +52,7 @@ const Sources = (
 					onClick: () => {
 						setDelta(INITIAL_DELTA);
 						setMovesLeft(null);
-						resetColorSet();
+						// resetColorSet();
 					}
 				}
 			],

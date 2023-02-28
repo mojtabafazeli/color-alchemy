@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, createContext, useMemo } from 'react';
 import { node } from 'prop-types';
 import { useGameState } from 'context/GameContext';
-import { INITIAL_DELTA } from 'constants/colorConstants';
+import { INITIAL_DELTA } from 'constants/constants';
 
 const ColorStateContext = createContext(null);
 const ColorUpdaterContext = createContext(null);
