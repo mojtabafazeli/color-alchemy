@@ -13,7 +13,7 @@ import updateTilesColors from 'utils/color/updateTilesColors';
 import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
 import calcDelta from 'utils/color/calcDelta';
-import { RED, GREEN, BLUE, INITIAL_DELTA } from 'constants/colorConstants';
+import { RED, GREEN, BLUE, INITIAL_DELTA, SUCCESS_SCORE } from 'constants/colorConstants';
 
 const Sources = (
 	{
@@ -28,15 +28,18 @@ const Sources = (
 	const { updateTilesColorsSet, updateSourcesColorsSet, setDelta, setClosestId, resetColorSet } = useColorUpdater();
 	const { fetchedGameState: gameState, movesLeft } = useGameState();
 	const { resetGame } = useGameUpdater();
-	if (movesLeft === 0) {
+	let result = 'Failed';
+	if (movesLeft === 0 || delta < SUCCESS_SCORE) {
+		if (delta < SUCCESS_SCORE) result = 'Success';
 		confirmAlert({
-			title: 'Your score is 100',
+			title: result,
 			message: 'Do you want to play again?',
 			onClickOutside: null,
 			buttons: [
 				{
 					label: 'Yes',
 					onClick: () => {
+						setDelta(INITIAL_DELTA);
 						setCounter(3);
 						setMovesLeft(20);
 						resetGame(gameState.userId);
@@ -46,6 +49,7 @@ const Sources = (
 				{
 					label: 'No',
 					onClick: () => {
+						setDelta(INITIAL_DELTA);
 						setMovesLeft(null);
 						resetColorSet();
 					}

@@ -35,8 +35,8 @@ const ColorContext = ({ children }) => {
 	const [closestId, setClosestId] = useState();
 
 	const resetColorSet = () => {
-		updateTilesColorsSet();
-		updateTilesColorsSet();
+		updateTilesColorsSet(null);
+		updateSourcesColorsSet(null);
 	};
 
 	const colorStateValue = useMemo(() => ({ tilesColorsSet, sourcesColorsSet, delta, closestId }), [tilesColorsSet, sourcesColorsSet]);

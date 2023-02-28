@@ -6,4 +6,4 @@ export const BLUE = 'rgb(0,0,255)';
 export const MAX_FACTOR = (r, g, b) => 255 / Math.max(r, g, b, 255);
 //To have some number to start comparing;
 export const INITIAL_DELTA = 100;
-export const SUCCESS_SCORE = 0.1;
+export const SUCCESS_SCORE = 10;
