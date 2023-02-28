@@ -14,7 +14,7 @@ import getRGBString from 'utils/color/getRGBString';
 import { useGameState, useGameUpdater } from 'context/GameContext';
 import calcDelta from 'utils/color/calcDelta';
 import { RED, GREEN, BLUE } from 'constants/colorConstants';
-import { MAX_SOURCE_CLICK , INITIAL_DELTA, SUCCESS_SCORE } from 'constants/constants';
+import { MAX_SOURCE_CLICK, SUCCESS_SCORE } from 'constants/constants';
 
 const Sources = (
 	{
@@ -41,8 +41,7 @@ const Sources = (
 					label: 'Yes',
 					onClick: () => {
 						setDelta(delta);
-						setCounter(3);
-						setMovesLeft(20);
+						setCounter(MAX_SOURCE_CLICK);
 						resetGame(gameState.userId);
 						resetColorSet();
 					}
