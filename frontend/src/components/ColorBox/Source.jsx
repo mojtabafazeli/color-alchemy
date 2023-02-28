@@ -1,20 +1,15 @@
 import React from 'react';
-import ColorBox from './ColorBox';
 import { string } from 'prop-types';
+import ColorBox from './ColorBox';
 import { ColorBoxType } from 'constants/constants';
 
 const Source = (props) => {
-	const onDragOver = (ev) => ev.preventDefault();
-	const onDrop = (e) => {
-		const color = e.dataTransfer.getData('color');
-		console.log(color);
+	const onDrop = (data, ev) => {
 	};
 	return (
 		<ColorBox
 			{...props}
 			type={ColorBoxType.SOURCE}
-			onDragOver={(e) => onDragOver(e)}
-			onDrop = {(e) => onDrop(e)}
 		/>
 	);
 };
