@@ -33,6 +33,12 @@ const Sources = (
 		updateColorSet(prev => ({ ...prev,...tilesSet, [sourceId]: sourceColor }));
 	};
 
+	const onDrop = (color, id) => {
+		const sourceColor = color.color;
+		const tilesSet = updateTilesColors(id, sourceColor, colorSet, width, height);
+		updateColorSet(prev => ({ ...prev,...tilesSet, [id]: sourceColor }));
+	};
+
 	const SourcesRow = (
 		{
 			length,
@@ -56,6 +62,7 @@ const Sources = (
 							id={id}
 							className={sourceClassName}
 							key={id}
+							onDrop={onDrop}
 							onClick={() => onClickSource(id)}
 							tooltip={tooltip}
 						/>

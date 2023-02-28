@@ -10,29 +10,33 @@ import { Draggable, Droppable } from 'react-drag-and-drop';
 const ColorBox = ({
 	color = BLACK,
 	className: propClassName,
+	id,
 	type,
+	onDrop: propOnDrop = noop,
 	onClick = noop,
 	tooltip,
 	...rest
 }) => {   
 	const boxClassName = classNames('box', type, propClassName);
 	const onDrop = (data) => {
-		console.log(data);
+		propOnDrop(data, id);
 	};
+	
 	return (
 		<div className='ColorBox'>
 			{
 				type === ColorBoxType.TILE ?
-					<Draggable type='color' data={color}>
+					<Draggable type={'color'} data={[color]}>
 						<div
 							className={boxClassName}
 							style={{ backgroundColor: color }}
+							id={id}
 							onClick={onClick}
 							{...rest}
 						/>
 					</Draggable>
 					: (
-						<Droppable types={['color']} onDrop={onDrop}>
+						<Droppable types={'color'} onDrop={onDrop}>
 							<div
 								className={boxClassName}
 								style={{ backgroundColor: color }}
@@ -52,8 +56,10 @@ const ColorBox = ({
 
 ColorBox.propTypes = {
 	color: string,
+	id: string,
 	type: oneOf([ColorBoxType.TILE, ColorBoxType.SOURCE]),
 	className: string,
+	onDrop: func,
 	onClick: func,
 	tooltip: string,
 	props: object,
